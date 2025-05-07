@@ -11,11 +11,22 @@ public class PlayerController : MonoBehaviour
     private float _moveDirection = 0.0f;
     private Coroutine _tiltAnimationCoroutine = null;
 
+    [Header("Acceleration")]
+    public float NormalSpeedPositionY;
+    public float SlowSpeedPositionY;
+    public float AccelerationAnimationDuration = 0.5f;
+    public LineRenderer LineTrail;
+    private Coroutine _accelerationAnimationCoroutine = null;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //Player movement
         InputManager.Instance.OnPlayerMoves += HandlePlayerMoves;
         InputManager.Instance.OnPlayerStopsMoving += HandlePlayerStopsMoving;
+
+        //Level Scroll speed
+        InputManager.Instance.OnPlayerAccelerating += HandlePlayerAccelerating;
     }
 
     void Update()
@@ -24,7 +35,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
+    #region Event Handling
     private void HandlePlayerMoves(object sender, float direction)
     {
         _moveDirection = direction;
@@ -35,6 +46,21 @@ public class PlayerController : MonoBehaviour
         _moveDirection = 0.0f;
         RevertTilt();
     }
+
+    private void HandlePlayerAccelerating(object sender, float acceleration)
+    {
+        if (acceleration == 0)
+        {
+            MoveToNormalSpeedPositionY();
+            LineTrail.enabled = false;
+        }
+        else
+            if (acceleration < 0)
+            MoveToSlowSpeedPositionY();
+        else
+            ActivateFastSpeedMode();
+    }
+    #endregion
 
     private void MoveHorizontally() => transform.position += new Vector3(_moveDirection, 0.0f, 0.0f) * MoveSpeed * Time.deltaTime;
 
@@ -69,6 +95,44 @@ public class PlayerController : MonoBehaviour
             StopCoroutine(_tiltAnimationCoroutine);
 
         _tiltAnimationCoroutine = StartCoroutine(TiltJet(0.0f, TiltAnimationDuration));
+    }
+    #endregion
+
+    #region Speed
+    private IEnumerator MoveInAxisY(float targetY, float animationDuration)
+    {
+        float elapsedTime = 0.0f;
+        float initialPositionY = transform.position.y;
+        float newY = 0.0f;
+
+        while (elapsedTime < animationDuration)
+        {
+            newY = Mathf.Lerp(initialPositionY, targetY, elapsedTime / animationDuration);
+            transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+            elapsedTime += Time.deltaTime;
+
+            yield return null;
+        }
+
+        transform.position = new Vector3(transform.position.x, targetY, transform.position.z);
+    }
+    private void MoveToSlowSpeedPositionY()
+    {
+        if (_accelerationAnimationCoroutine != null)
+            StopCoroutine(_accelerationAnimationCoroutine);
+
+        _accelerationAnimationCoroutine = StartCoroutine(MoveInAxisY(SlowSpeedPositionY, AccelerationAnimationDuration));
+    }
+    private void MoveToNormalSpeedPositionY()
+    {
+        if (_accelerationAnimationCoroutine != null)
+            StopCoroutine(_accelerationAnimationCoroutine);
+
+        _accelerationAnimationCoroutine = StartCoroutine(MoveInAxisY(NormalSpeedPositionY, AccelerationAnimationDuration));
+    }
+    private void ActivateFastSpeedMode()
+    {
+        LineTrail.enabled = true;
     }
     #endregion
 }

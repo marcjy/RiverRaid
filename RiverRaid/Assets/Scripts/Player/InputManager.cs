@@ -9,8 +9,11 @@ public class InputManager : MonoBehaviour
     public event EventHandler<float> OnPlayerMoves;
     public event EventHandler OnPlayerStopsMoving;
 
+    public event EventHandler<float> OnPlayerAccelerating;
+
     [Header("Actions")]
     public InputActionReference Move;
+    public InputActionReference Acceleration;
 
     private void Awake()
     {
@@ -23,6 +26,7 @@ public class InputManager : MonoBehaviour
     private void OnEnable()
     {
         InitMoveAction();
+        InitAccelerationAction();
     }
 
     private void InitMoveAction()
@@ -30,5 +34,10 @@ public class InputManager : MonoBehaviour
         Move.action.Enable();
         Move.action.performed += callback => OnPlayerMoves?.Invoke(this, callback.ReadValue<float>());
         Move.action.canceled += callback => OnPlayerStopsMoving?.Invoke(this, EventArgs.Empty);
+    }
+    private void InitAccelerationAction()
+    {
+        Acceleration.action.performed += callback => OnPlayerAccelerating?.Invoke(this, callback.ReadValue<float>());
+        Acceleration.action.canceled += callback => OnPlayerAccelerating?.Invoke(this, callback.ReadValue<float>());
     }
 }
