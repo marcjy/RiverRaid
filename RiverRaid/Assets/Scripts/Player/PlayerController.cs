@@ -11,17 +11,11 @@ public class PlayerController : MonoBehaviour
     private float _moveDirection = 0.0f;
     private Coroutine _tiltAnimationCoroutine = null;
 
-    private InputManager _inputManager;
-
-    private void Awake()
-    {
-        _inputManager = GetComponent<InputManager>();
-    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _inputManager.OnPlayerMoves += HandlePlayerMoves;
-        _inputManager.OnPlayerStopsMoving += HandlePlayerStopsMoving;
+        InputManager.Instance.OnPlayerMoves += HandlePlayerMoves;
+        InputManager.Instance.OnPlayerStopsMoving += HandlePlayerStopsMoving;
     }
 
     void Update()
