@@ -19,13 +19,42 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         _currentSpeed = NormalSpeed;
-        InstantiateLevels();
+        enabled = false;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         InputManager.Instance.OnPlayerAccelerating += HandlePlayerAccelerating;
+
+        GameManager.Instance.OnStartNewGame += HandleStartNewGame;
+        GameManager.Instance.OnEndGame += HandleEndGame;
+        GameManager.Instance.OnResetGame += HandleResetGame;
+    }
+
+
+
+    #region EventHandling
+    private void HandleStartNewGame(object sender, System.EventArgs e)
+    {
+        InstantiateInitialLevels();
+
+        _currentSpeed = NormalSpeed;
+        enabled = true;
+    }
+    private void HandleEndGame(object sender, System.EventArgs e)
+    {
+        enabled = false;
+    }
+    private void HandleResetGame(object sender, System.EventArgs e)
+    {
+        Destroy(_currentLevel);
+        Destroy(_nextLevel);
+
+        _currentLevel = null;
+        _nextLevel = null;
+
+        _unusedLevelIndexes.Clear();
     }
 
     private void HandlePlayerAccelerating(object sender, float acceleration)
@@ -38,6 +67,7 @@ public class LevelManager : MonoBehaviour
         else
             _currentSpeed = FastSpeed;
     }
+    #endregion
 
     // Update is called once per frame
     void Update()
@@ -45,7 +75,7 @@ public class LevelManager : MonoBehaviour
         ScrollLevels();
     }
 
-    private void InstantiateLevels()
+    private void InstantiateInitialLevels()
     {
         _currentLevel = Instantiate(InitialLevel, transform);
         _nextLevel = Instantiate(GetRandomUnusedLevel(), transform);
