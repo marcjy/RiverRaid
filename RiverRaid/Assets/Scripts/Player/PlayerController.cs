@@ -1,8 +1,12 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public event EventHandler OnDeath;
+    public event EventHandler OnFuelCollected;
+
     [Header("Movement")]
     public float MoveSpeed = 2.0f;
     public float TiltSpeed = 2.0f;
@@ -133,6 +137,15 @@ public class PlayerController : MonoBehaviour
     private void ActivateFastSpeedMode()
     {
         LineTrail.enabled = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Hazard"))
+            OnDeath?.Invoke(this, EventArgs.Empty);
+
+        if (collision.gameObject.CompareTag("Fuel"))
+            OnFuelCollected?.Invoke(this, EventArgs.Empty);
     }
     #endregion
 }
