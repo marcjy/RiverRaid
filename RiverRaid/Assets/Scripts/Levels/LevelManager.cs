@@ -5,7 +5,7 @@ public class LevelManager : MonoBehaviour
 {
     public GameObject InitialLevel;
     public GameObject[] LevelPrefabs;
-    private List<int> _unusedLevelIndexes = new List<int>();
+    private readonly List<int> _unusedLevelIndexes = new List<int>();
 
     [Header("Scroll Speed")]
     public float NormalSpeed = 2.0f;
@@ -18,8 +18,8 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
-        _currentSpeed = NormalSpeed;
-        enabled = false;
+        _currentSpeed = 0;
+        InstantiateInitialLevels();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -35,17 +35,8 @@ public class LevelManager : MonoBehaviour
 
 
     #region EventHandling
-    private void HandleStartNewGame(object sender, System.EventArgs e)
-    {
-        InstantiateInitialLevels();
-
-        _currentSpeed = NormalSpeed;
-        enabled = true;
-    }
-    private void HandleEndGame(object sender, System.EventArgs e)
-    {
-        enabled = false;
-    }
+    private void HandleStartNewGame(object sender, System.EventArgs e) => _currentSpeed = NormalSpeed;
+    private void HandleEndGame(object sender, System.EventArgs e) => _currentSpeed = 0.0f;
     private void HandleResetGame(object sender, System.EventArgs e)
     {
         Destroy(_currentLevel);
