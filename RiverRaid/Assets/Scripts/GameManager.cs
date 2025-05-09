@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
     public event EventHandler OnResetGame;
 
 
-    public PlayerController Player;
+    private PlayerController _player;
+    private Vector3 _playerInitialPosition;
 
     private void Awake()
     {
@@ -18,15 +19,26 @@ public class GameManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+
+        _player = FindAnyObjectByType<PlayerController>();
+        _playerInitialPosition = _player.transform.position;
     }
 
     private void Start()
     {
-        Player.OnDeath += HandlePlayerDeath;
+        _player.OnDeath += HandlePlayerDeath;
+
+        UIEvents.OnStartGameAnimationCompleted += HandleStartGameAnimationCompleted;
+    }
+
+    private void HandleStartGameAnimationCompleted(object sender, EventArgs e)
+    {
+        _player.transform.position = _playerInitialPosition;
+        OnStartNewGame?.Invoke(this, EventArgs.Empty);
     }
 
     private void HandlePlayerDeath(object sender, System.EventArgs e)
     {
-
+        OnEndGame?.Invoke(this, EventArgs.Empty);
     }
 }
