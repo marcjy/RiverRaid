@@ -11,11 +11,13 @@ public class InputManager : MonoBehaviour
     public event EventHandler<float> OnPlayerMoves;
     public event EventHandler OnPlayerStopsMoving;
     public event EventHandler<float> OnPlayerAccelerating;
+    public event EventHandler OnPlayerFires;
 
 
     [Header("In-Game Actions")]
     public InputActionReference Move;
     public InputActionReference Acceleration;
+    public InputActionReference Fire;
 
     [Header("UI Actions")]
     public InputActionReference StartGame;
@@ -30,6 +32,8 @@ public class InputManager : MonoBehaviour
 
         InitMoveAction();
         InitAccelerationAction();
+        InitFireAction();
+
         DisablePlayerActionsInGame();
 
         InitStartGameAction();
@@ -46,12 +50,14 @@ public class InputManager : MonoBehaviour
     {
         Move.action.Enable();
         Acceleration.action.Enable();
+        Fire.action.Enable();
     }
 
     private void DisablePlayerActionsInGame()
     {
         Move.action.Disable();
         Acceleration.action.Disable();
+        Fire.action.Disable();
     }
 
     private void InitStartGameAction()
@@ -75,5 +81,15 @@ public class InputManager : MonoBehaviour
         Acceleration.action.Disable();
         Acceleration.action.performed += callback => OnPlayerAccelerating?.Invoke(this, callback.ReadValue<float>());
         Acceleration.action.canceled += callback => OnPlayerAccelerating?.Invoke(this, callback.ReadValue<float>());
+    }
+    private void InitFireAction()
+    {
+        Fire.action.Disable();
+        Fire.action.performed += callback => OnPlayerFires?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void Action_performed(InputAction.CallbackContext obj)
+    {
+        throw new NotImplementedException();
     }
 }
