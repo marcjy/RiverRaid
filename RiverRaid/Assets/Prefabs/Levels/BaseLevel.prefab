@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7005248326097156553}
   - component: {fileID: 8650960152057285849}
   - component: {fileID: 3541327996564865296}
+  - component: {fileID: 2537328194553878024}
   m_Layer: 0
   m_Name: Bridge
   m_TagString: Hazard
@@ -270,6 +271,19 @@ CompositeCollider2D:
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 648736236649619053}
+--- !u!114 &2537328194553878024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648736236649619053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d48219878261c14885523134ada4f88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ExplosionAnimation: {fileID: 4141515250804479983, guid: 61911cf08363e3d43b2c6aad17c7a7af, type: 3}
 --- !u!1 &2643883781237365656
 GameObject:
   m_ObjectHideFlags: 0
@@ -1238,6 +1252,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2962970347147623450}
   - component: {fileID: -8644204950018477812}
+  - component: {fileID: 1657685465060884292}
   m_Layer: 0
   m_Name: BaseLevel
   m_TagString: Untagged
@@ -1277,3 +1292,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BridgeTilemap: {fileID: 0}
+--- !u!114 &1657685465060884292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9061014331308451392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fc61303458bb174cb3423573fef4dff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NormalSpeed: 2
+  SlowSpeed: 1
+  FastSpeed: 4
