@@ -19,10 +19,8 @@ public class GameManager : MonoBehaviour
     private Vector3 _playerInitialPosition;
     private bool _playerIsAlive;
 
-    //private bool _isStartGameAnimationCompleted;
-
+    public int PlayerMaxLifes = 3;
     private int _currentPlayerLifes;
-    private int _playerMaxLifes;
 
 
     private void Awake()
@@ -34,7 +32,6 @@ public class GameManager : MonoBehaviour
 
         _player = FindAnyObjectByType<PlayerController>();
         _playerInitialPosition = _player.transform.position;
-        _playerMaxLifes = 3;
     }
 
     private void Start()
@@ -42,6 +39,9 @@ public class GameManager : MonoBehaviour
         _player.OnDeath += HandlePlayerDeath;
 
         UIEvents.OnStartGameAnimationCompleted += HandleStartGameAnimationCompleted;
+
+        UIEvents.OnPlayAgain += HandlePlayAgain;
+        UIEvents.OnQuit += HandleQuit;
     }
 
 
@@ -49,6 +49,16 @@ public class GameManager : MonoBehaviour
     private void HandleStartGameAnimationCompleted(object sender, EventArgs e) => StartCoroutine(GameLoop());
 
     private void HandlePlayerDeath(object sender, System.EventArgs e) => _playerIsAlive = false;
+
+    private void HandlePlayAgain(object sender, EventArgs e) => ResetGame();
+    private void HandleQuit(object sender, EventArgs e)
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
     #endregion
 
 
@@ -69,7 +79,7 @@ public class GameManager : MonoBehaviour
 
     private void GameStart()
     {
-        _currentPlayerLifes = _playerMaxLifes;
+        _currentPlayerLifes = PlayerMaxLifes;
         _playerIsAlive = true;
 
         OnStartNewGame?.Invoke(this, EventArgs.Empty);
@@ -104,6 +114,7 @@ public class GameManager : MonoBehaviour
 
     private void ResetGame()
     {
+        ResetPlayerPosition();
         OnResetGame?.Invoke(this, EventArgs.Empty);
     }
 

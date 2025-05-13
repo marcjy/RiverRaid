@@ -18,25 +18,24 @@ public class UIEndGame : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GameManager.Instance.OnStartNewGame += HandleStartNewGame;
         GameManager.Instance.OnEndGame += HandleEndGame;
+        GameManager.Instance.OnResetGame += HandleResetGame;
 
         InitButtons();
     }
 
+
     #region Event Handling
-    private void HandleStartNewGame(object sender, System.EventArgs e)
-    {
-        ResetStatsValues();
-        HideEndGameWindow();
-    }
     private void HandleEndGame(object sender, System.EventArgs e)
     {
+        ResetStatsValues();
+
         StatsTracker.GameStats stats = StatsTracker.Instance.GetGameStats();
         SetStatsValues(stats);
 
         ShowEndGameWindow();
     }
+    private void HandleResetGame(object sender, System.EventArgs e) => HideEndGameWindow();
     #endregion
 
     private void InitButtons()
