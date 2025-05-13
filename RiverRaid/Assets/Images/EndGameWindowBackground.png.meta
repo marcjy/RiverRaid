@@ -1,11 +1,10 @@
 fileFormatVersion: 2
-guid: eb4700cfd910c8540a6190e7fec27071
+guid: 55c0099dc966de94b817e4b91373d92d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2592094850749634562
-    second: 2025-05-08 14_48_05-RiverRaid - Game - Windows, Mac, Linux - Unity 6
-      (6000.0.39f1)_ _DX11__0
+      213: -5476992517327010969
+    second: orig_big_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -114,14 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 2025-05-08 14_48_05-RiverRaid - Game - Windows, Mac, Linux - Unity 6
-        (6000.0.39f1)_ _DX11__0
+      name: orig_big_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1920
-        height: 1081
+        width: 2304
+        height: 1296
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ef7e2fc7777070cd0800000000000000
-      internalID: -2592094850749634562
+      spriteID: 7634047e250ddf3b0800000000000000
+      internalID: -5476992517327010969
       vertices: []
       indices: 
       edges: []
@@ -150,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      2025-05-08 14_48_05-RiverRaid - Game - Windows, Mac, Linux - Unity 6 (6000.0.39f1)_ _DX11__0: -2592094850749634562
+      orig_big_0: -5476992517327010969
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
