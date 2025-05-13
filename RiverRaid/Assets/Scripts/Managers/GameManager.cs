@@ -7,22 +7,23 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public event EventHandler OnStartNewGame;
-    //public event EventHandler OnStartLevel;
+
+    public event EventHandler OnStartLevel;
     public event EventHandler OnResetLevel;
-    public event EventHandler OnResetGame;
+
     public event EventHandler OnEndGame;
+    public event EventHandler OnResetGame;
 
 
     private PlayerController _player;
     private Vector3 _playerInitialPosition;
     private bool _playerIsAlive;
 
-    private bool _isStartGameAnimationCompleted;
+    //private bool _isStartGameAnimationCompleted;
 
     private int _currentPlayerLifes;
     private int _playerMaxLifes;
 
-    private int _levelsCleared;
 
     private void Awake()
     {
@@ -34,7 +35,6 @@ public class GameManager : MonoBehaviour
         _player = FindAnyObjectByType<PlayerController>();
         _playerInitialPosition = _player.transform.position;
         _playerMaxLifes = 3;
-        _currentPlayerLifes = _playerMaxLifes;
     }
 
     private void Start()
@@ -42,17 +42,13 @@ public class GameManager : MonoBehaviour
         _player.OnDeath += HandlePlayerDeath;
 
         UIEvents.OnStartGameAnimationCompleted += HandleStartGameAnimationCompleted;
-        LevelManager.OnReachedNewLevel += HandleReachedNewLevel;
-
-        StartCoroutine(GameLoop());
     }
 
 
     #region Event Handling
-    private void HandleStartGameAnimationCompleted(object sender, EventArgs e) => _isStartGameAnimationCompleted = true;
+    private void HandleStartGameAnimationCompleted(object sender, EventArgs e) => StartCoroutine(GameLoop());
 
     private void HandlePlayerDeath(object sender, System.EventArgs e) => _playerIsAlive = false;
-    private void HandleReachedNewLevel(object sender, EventArgs e) => _levelsCleared++;
     #endregion
 
 
@@ -60,9 +56,6 @@ public class GameManager : MonoBehaviour
     private IEnumerator GameLoop()
     {
         GameStart();
-
-        while (!_isStartGameAnimationCompleted)
-            yield return null;
 
         while (HasLivesLeft())
         {
@@ -79,9 +72,7 @@ public class GameManager : MonoBehaviour
         _currentPlayerLifes = _playerMaxLifes;
         _playerIsAlive = true;
 
-        _isStartGameAnimationCompleted = false;
-
-        _levelsCleared = 0;
+        OnStartNewGame?.Invoke(this, EventArgs.Empty);
     }
     private void RoundStart()
     {
@@ -89,6 +80,8 @@ public class GameManager : MonoBehaviour
     }
     private IEnumerator RoundPlaying()
     {
+        OnStartLevel?.Invoke(this, EventArgs.Empty);
+
         while (IsPlayerAlive())
         {
             yield return null;
@@ -112,7 +105,6 @@ public class GameManager : MonoBehaviour
     private void ResetGame()
     {
         OnResetGame?.Invoke(this, EventArgs.Empty);
-        StartCoroutine(GameLoop());
     }
 
     private bool HasLivesLeft() => _currentPlayerLifes > 0;

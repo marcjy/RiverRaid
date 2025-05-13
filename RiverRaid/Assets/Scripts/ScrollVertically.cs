@@ -18,7 +18,7 @@ public class ScrollVertically : MonoBehaviour
     {
         InputManager.Instance.OnPlayerAccelerating += HandlePlayerAccelerating;
 
-        GameManager.Instance.OnStartNewGame += HandleStartNewGame;
+        GameManager.Instance.OnStartLevel += HandleStartLevel;
         GameManager.Instance.OnResetGame += HandleGameStateReset;
         GameManager.Instance.OnEndGame += HandleGameStateReset;
     }
@@ -30,7 +30,7 @@ public class ScrollVertically : MonoBehaviour
     }
 
     #region EventHandling
-    private void HandleStartNewGame(object sender, System.EventArgs e) => _currentSpeed = NormalSpeed;
+    private void HandleStartLevel(object sender, System.EventArgs e) => _currentSpeed = NormalSpeed;
     private void HandleGameStateReset(object sender, System.EventArgs e) => _currentSpeed = 0.0f;
 
     private void HandlePlayerAccelerating(object sender, float acceleration) => CalculateSpeed(acceleration);
