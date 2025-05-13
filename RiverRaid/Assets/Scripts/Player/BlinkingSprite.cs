@@ -29,7 +29,7 @@ public class BlinkingSprite : MonoBehaviour
 
             yield return new WaitForSeconds(TimeBetweenStates);
 
-            elapsedTime += Time.deltaTime;
+            elapsedTime += TimeBetweenStates;
         }
 
         _renderer.enabled = true;
