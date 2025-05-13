@@ -46,6 +46,8 @@ public class LevelManager : MonoBehaviour
         _nextLevel = null;
 
         _unusedLevelIndexes.Clear();
+
+        InstantiateInitialLevels();
     }
 
     #endregion
