@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    public static event EventHandler OnReachedNewLevel;
+
     public GameObject InitialLevel;
     public GameObject[] LevelPrefabs;
     private readonly List<int> _unusedLevelIndexes = new List<int>();
@@ -71,6 +74,8 @@ public class LevelManager : MonoBehaviour
         _nextLevel.GetComponent<ScrollVertically>().RecalculateSpeed();
 
         PlaceNextLevelAboveCurrent();
+
+        OnReachedNewLevel?.Invoke(this, EventArgs.Empty);
     }
 
     private void PlaceNextLevelAboveCurrent()
@@ -89,7 +94,7 @@ public class LevelManager : MonoBehaviour
                 _unusedLevelIndexes.Add(i);
         }
 
-        int rndIndex = Random.Range(0, nLevels);
+        int rndIndex = UnityEngine.Random.Range(0, nLevels);
         _unusedLevelIndexes.Remove(rndIndex);
 
         return LevelPrefabs[rndIndex];
