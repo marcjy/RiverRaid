@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
 
         UIEvents.OnStartGameAnimationCompleted += HandleStartGameAnimationCompleted;
         LevelManager.OnReachedNewLevel += HandleReachedNewLevel;
+
+        StartCoroutine(GameLoop());
     }
 
 
