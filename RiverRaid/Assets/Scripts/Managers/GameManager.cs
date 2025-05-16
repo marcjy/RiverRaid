@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IGameLifeCycle
 {
     public static GameManager Instance;
 
@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour
 
         UIEvents.OnPlayAgain += HandlePlayAgain;
         UIEvents.OnQuit += HandleQuit;
+
+        FindAnyObjectByType<ObjectGenerator<BaseEnemyBehaviour>>().Init(this);
     }
 
 
