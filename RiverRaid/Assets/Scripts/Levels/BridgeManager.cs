@@ -3,13 +3,14 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class BridgeManager : MonoBehaviour, IDestructible
+public class BridgeManager : MonoBehaviour
 {
     public DestroyOnAnimationEvent ExplosionAnimation;
 
     private Tilemap _tileMap;
     private List<Vector3Int> _tilePositions;
     private List<Vector3Int> _destuctibleTiles;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -23,11 +24,7 @@ public class BridgeManager : MonoBehaviour, IDestructible
         SetDestructibleTiles();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    public IReadOnlyList<Vector3Int> GetDestructibleTiles() => _destuctibleTiles.AsReadOnly();
 
     private void FindPaintedTiles()
     {
@@ -45,19 +42,4 @@ public class BridgeManager : MonoBehaviour, IDestructible
         }
     }
     private void SetDestructibleTiles() => _destuctibleTiles = _tilePositions.Skip(1).Take(_tilePositions.Count - 2).ToList(); //The first and last tiles shouldn't be destroyed.
-
-    public void Destroy(GameObject source)
-    {
-        float offsetPositionY = 0.5f;
-        float offsetPositionX = 0.5f;
-
-        foreach (Vector3Int position in _destuctibleTiles)
-        {
-            DestroyOnAnimationEvent explosion = Instantiate(ExplosionAnimation);
-            explosion.transform.position = new Vector3(position.x + offsetPositionX, source.transform.position.y + offsetPositionY);
-            explosion.GetComponent<ScrollVertically>().RecalculateSpeed();
-
-            _tileMap.SetTile(position, null);
-        }
-    }
 }
