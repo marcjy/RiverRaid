@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6a2857c50a56ec843b3791e931c8b76f
+guid: 6f6d8888308a02f428af78f7c1cc3b01
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 636315424799648363
-    second: ShipDestroyerHull_0
+      213: -1896000167880787425
+    second: EnemyJet_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ShipDestroyerHull_0
+      name: EnemyJet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 20
-        height: 100
+        width: 35
+        height: 45
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b6ae84ce185a4d800800000000000000
-      internalID: 636315424799648363
+      spriteID: f1a726b84ed00b5e0800000000000000
+      internalID: -1896000167880787425
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ShipDestroyerHull_0: 636315424799648363
+      EnemyJet_0: -1896000167880787425
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
