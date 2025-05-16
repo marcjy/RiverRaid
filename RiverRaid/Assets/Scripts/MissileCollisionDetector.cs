@@ -28,7 +28,7 @@ public class MissileCollisionDetector : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out IDestructible entity))
+        if (collision.TryGetComponent(out BaseDestructible entity))
         {
             entity.Destroy(gameObject);
             Destroy(gameObject);
