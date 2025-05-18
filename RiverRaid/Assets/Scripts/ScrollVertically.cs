@@ -52,5 +52,5 @@ public class ScrollVertically : MonoBehaviour
         CalculateSpeed(InputManager.Instance.Acceleration.action.ReadValue<float>());
     }
 
-    private void Scroll() => gameObject.transform.position -= Vector3.up * _currentSpeed * Time.deltaTime;
+    private void Scroll() => gameObject.transform.position -= _currentSpeed * Time.deltaTime * Vector3.up;
 }

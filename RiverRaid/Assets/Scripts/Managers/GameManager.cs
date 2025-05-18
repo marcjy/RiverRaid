@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour, IGameLifeCycle
 
         _player = FindAnyObjectByType<PlayerController>();
         _playerInitialPosition = _player.transform.position;
+
+        AudioManager.Init();
     }
 
     private void Start()

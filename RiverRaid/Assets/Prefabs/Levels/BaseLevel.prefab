@@ -299,7 +299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScoreValue: 100
   DestroyAnimation: {fileID: 4141515250804479983, guid: 61911cf08363e3d43b2c6aad17c7a7af, type: 3}
-  DestroySound: {fileID: 0}
+  _destroySound: {fileID: 0}
 --- !u!1 &2643883781237365656
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,6 +311,7 @@ GameObject:
   - component: {fileID: 4803513303212261769}
   - component: {fileID: 897659570329937810}
   - component: {fileID: 330699642251898944}
+  - component: {fileID: 8656291069177496538}
   m_Layer: 0
   m_Name: River
   m_TagString: Untagged
@@ -569,6 +570,18 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!114 &8656291069177496538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2643883781237365656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c204642e2dbd59a4cbc1681d27f3a88c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3067313084884232264
 GameObject:
   m_ObjectHideFlags: 0
