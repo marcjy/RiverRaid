@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     public GameObject[] LevelPrefabs;
     private readonly List<int> _unusedLevelIndexes = new List<int>();
 
+    public GameObject CurrentLevel => _currentLevel;
 
     private GameObject _currentLevel;
     private GameObject _nextLevel;
@@ -26,8 +27,6 @@ public class LevelManager : MonoBehaviour
         GameManager.Instance.OnResetLevel += HandleResetLevel;
         GameManager.Instance.OnResetGame += HandleResetGame;
     }
-
-
 
 
     #region EventHandling
