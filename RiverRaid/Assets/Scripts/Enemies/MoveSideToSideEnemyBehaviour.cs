@@ -32,14 +32,13 @@ public class MoveSideToSideEnemyBehaviour : BaseEnemyBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base.Update();
+
         Move();
 
-        if (transform.position.y <= _minPositionY)
-            TriggerOnShouldBeReleased();
-        else
-            if (HasYChangedSinceLastBoundsCheck())
+        if (HasYChangedSinceLastBoundsCheck())
         {
             CalculateXBoundsAtY(Mathf.FloorToInt(transform.position.y));
             _lastYUsedForXBounds = transform.position.y;

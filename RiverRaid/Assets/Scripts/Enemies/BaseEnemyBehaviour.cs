@@ -19,6 +19,12 @@ public abstract class BaseEnemyBehaviour : MonoBehaviour, IGenerable
         _minPositionY = FindAnyObjectByType<PlayerController>().gameObject.transform.position.y - 1;
     }
 
+    protected virtual void Update()
+    {
+        if (transform.position.y <= _minPositionY)
+            TriggerOnShouldBeReleased();
+    }
+
     public abstract void Init();
 
     protected void TriggerOnShouldBeReleased() => OnShouldBeReleased?.Invoke(this, EventArgs.Empty);
