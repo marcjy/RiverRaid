@@ -76,7 +76,8 @@ public class MoveSideToSideEnemyBehaviour : BaseEnemyBehaviour
 
     private void CalculateXBoundsAtY(int y)
     {
-        _riverManager.GetXBoundsGivenY(y, out _minPositionX, out _maxPositionX);
+        if (!_riverManager.GetXBoundsGivenY(y, out _minPositionX, out _maxPositionX, Mathf.FloorToInt(transform.position.x)))
+            Destroy(gameObject);
 
         _targetX = _movingLeft ? _minPositionX : _maxPositionX;
     }
@@ -89,4 +90,10 @@ public class MoveSideToSideEnemyBehaviour : BaseEnemyBehaviour
     }
 
     private void FlipEnemy() => transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z * -1);
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, new Vector3(_targetX, transform.position.y, transform.position.z));
+    }
 }

@@ -61460,9 +61460,21 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[715].second.m_TileObjectToInstantiateIndex
       value: 65535
       objectReference: {fileID: 0}
+    - target: {fileID: 8656291069177496538, guid: dd9e3648092ac1541b5b14ceea610f3a, type: 3}
+      propertyPath: RiverIsBifurcated
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8656291069177496538, guid: dd9e3648092ac1541b5b14ceea610f3a, type: 3}
+      propertyPath: BifurcationEndsAtY
+      value: 49
+      objectReference: {fileID: 0}
+    - target: {fileID: 8656291069177496538, guid: dd9e3648092ac1541b5b14ceea610f3a, type: 3}
+      propertyPath: BifurcationStartsAtY
+      value: 32
+      objectReference: {fileID: 0}
     - target: {fileID: 9061014331308451392, guid: dd9e3648092ac1541b5b14ceea610f3a, type: 3}
       propertyPath: m_Name
-      value: Level_2
+      value: Level_01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
