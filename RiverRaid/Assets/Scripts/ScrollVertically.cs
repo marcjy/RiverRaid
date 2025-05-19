@@ -2,12 +2,6 @@ using UnityEngine;
 
 public class ScrollVertically : MonoBehaviour
 {
-    [Header("Scroll Speed")]
-    public float NormalSpeed = 2.0f;
-    public float SlowSpeed = 1.0f;
-    public float FastSpeed = 4.0f;
-
-    public float CurrentSpeed => _currentSpeed;
     private float _currentSpeed;
 
     private void Awake()
@@ -18,12 +12,9 @@ public class ScrollVertically : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        InputManager.Instance.OnPlayerAccelerating += HandlePlayerAccelerating;
-
-        GameManager.Instance.OnStartLevel += HandleStartLevel;
-        GameManager.Instance.OnResetGame += HandleGameStateReset;
-        GameManager.Instance.OnEndGame += HandleGameStateReset;
+        SpeedManager.OnSpeedChanged += HandleSpeedChanged;
     }
+
 
     // Update is called once per frame
     void Update()
@@ -32,27 +23,10 @@ public class ScrollVertically : MonoBehaviour
     }
 
     #region EventHandling
-    private void HandleStartLevel(object sender, System.EventArgs e) => _currentSpeed = NormalSpeed;
-    private void HandleGameStateReset(object sender, System.EventArgs e) => _currentSpeed = 0.0f;
-
-    private void HandlePlayerAccelerating(object sender, float acceleration) => CalculateSpeed(acceleration);
+    private void HandleSpeedChanged(object sender, float newSpeed) => _currentSpeed = newSpeed;
     #endregion
 
-    private void CalculateSpeed(float acceleration)
-    {
-        if (acceleration == 0)
-            _currentSpeed = NormalSpeed;
-        else
-            if (acceleration < 0)
-            _currentSpeed = SlowSpeed;
-        else
-            _currentSpeed = FastSpeed;
-    }
-    public void RecalculateSpeed()
-    {
-        //If the player is accelerating/decelerating the speed won't be updated, due to the event not triggering because the player is holding down the corresponding key.
-        CalculateSpeed(InputManager.Instance.Acceleration.action.ReadValue<float>());
-    }
-
     private void Scroll() => gameObject.transform.position -= _currentSpeed * Time.deltaTime * Vector3.up;
+
+    public void RecalculateSpeed() => _currentSpeed = SpeedManager.CurrentSpeed;
 }

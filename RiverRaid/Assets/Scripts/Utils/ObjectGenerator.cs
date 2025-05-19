@@ -77,10 +77,11 @@ public class ObjectGenerator<T> : MonoBehaviour where T : MonoBehaviour, IGenera
     }
     private void GetObjectFromPool(T @object)
     {
-        @object.Init();
         _activeObjectsInPools.Add(@object.GetInstanceID(), new Tuple<Type, T>(@object.GetType(), @object));
         @object.gameObject.SetActive(true);
         @object.enabled = true;
+
+        @object.Init();
     }
     private void ReleaseObjectFromPool(T @object)
     {
