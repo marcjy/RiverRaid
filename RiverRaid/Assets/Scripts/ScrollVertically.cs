@@ -6,6 +6,8 @@ public class ScrollVertically : MonoBehaviour
     public float NormalSpeed = 2.0f;
     public float SlowSpeed = 1.0f;
     public float FastSpeed = 4.0f;
+
+    public float CurrentSpeed => _currentSpeed;
     private float _currentSpeed;
 
     private void Awake()
