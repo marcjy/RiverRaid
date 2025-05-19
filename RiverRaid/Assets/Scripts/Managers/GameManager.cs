@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour, IGameLifeCycle
     public event EventHandler OnEndGame;
     public event EventHandler OnResetGame;
 
-
+    [HideInInspector] public GameObject Player => _player.gameObject;
     private PlayerController _player;
     private Vector3 _playerInitialPosition;
     private bool _playerIsAlive;
