@@ -30,7 +30,7 @@ public class UIEndGame : MonoBehaviour
     {
         ResetStatsValues();
 
-        StatsTracker.GameStats stats = StatsTracker.Instance.GetGameStats();
+        StatsTracker.GameStats stats = StatsTracker.GetGameStats();
         SetStatsValues(stats);
 
         ShowEndGameWindow();

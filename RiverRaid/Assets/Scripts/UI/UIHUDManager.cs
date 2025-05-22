@@ -21,6 +21,9 @@ public class UIHUDManager : MonoBehaviour
     public Slider FuelSlider;
     public TextMeshProUGUI FuelValue;
 
+    [Header("Score")]
+    public TextMeshProUGUI ScoreValue;
+
     private PlayerFuelManager _playerFuelManager;
 
     private void Awake()
@@ -40,9 +43,11 @@ public class UIHUDManager : MonoBehaviour
 
         GameManager.Instance.OnStartNewGame += HandleStartNewGame;
         GameManager.Instance.OnStartLevel += HandleStartLevel;
-        GameManager.Instance.OnLevelEnds += HandleLevelEnds;
+        GameManager.Instance.OnLevelEnds += HandlePlayerLosesLive;
 
         GameManager.Instance.OnResetGame += HandleResetGame;
+
+        StatsTracker.OnScoreChanges += HandleNewScoreValue;
     }
 
     #region Event Handling
@@ -50,19 +55,20 @@ public class UIHUDManager : MonoBehaviour
     {
         ResetLivesUI();
         ResetFuelUI();
+        ResetScoreUI();
 
         StartCoroutine(FadeInHUD());
     }
     private void HandleStartLevel(object sender, System.EventArgs e) => ResetFuelUI();
-    private void HandleLevelEnds(object sender, System.EventArgs e) => LoseHeart();
-
     private void HandleResetGame(object sender, System.EventArgs e) => _canvasGroupHUD.alpha = 0.0f;
 
+    private void HandlePlayerLosesLive(object sender, System.EventArgs e) => LoseHeart();
     private void HandleCurrentFuelChanged(object sender, float currentFuel)
     {
         FuelValue.text = Mathf.RoundToInt(currentFuel).ToString();
         FuelSlider.value = currentFuel / 100;
     }
+    private void HandleNewScoreValue(object sender, int newScoreValue) => ScoreValue.text = newScoreValue.ToString();
     #endregion
 
     private void ResetLivesUI()
@@ -76,6 +82,10 @@ public class UIHUDManager : MonoBehaviour
     {
         FuelSlider.value = 1;
         FuelValue.text = "100";
+    }
+    private void ResetScoreUI()
+    {
+        ScoreValue.text = "0";
     }
 
     private IEnumerator FadeInHUD()

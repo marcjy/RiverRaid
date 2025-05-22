@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour, IGameLifeCycle
     private void Start()
     {
         _player.OnDeath += HandlePlayerDeath;
+        _player.GetComponent<PlayerFuelManager>().OnOutOfFuel += HandlePlayerOutOfFuel;
 
         UIEvents.OnStartGameAnimationCompleted += HandleStartGameAnimationCompleted;
 
@@ -47,13 +48,17 @@ public class GameManager : MonoBehaviour, IGameLifeCycle
 
         FindAnyObjectByType<ObjectGenerator<BaseEnemyBehaviour>>().Init(this);
         FindAnyObjectByType<ObjectGenerator<BaseCollectible>>().Init(this);
+
+        StatsTracker.Init();
     }
+
 
 
     #region Event Handling
     private void HandleStartGameAnimationCompleted(object sender, EventArgs e) => StartCoroutine(GameLoop());
 
     private void HandlePlayerDeath(object sender, System.EventArgs e) => _playerIsAlive = false;
+    private void HandlePlayerOutOfFuel(object sender, EventArgs e) => _playerIsAlive = false;
 
     private void HandlePlayAgain(object sender, EventArgs e) => ResetGame();
     private void HandleQuit(object sender, EventArgs e)
