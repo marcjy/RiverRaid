@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour, IGameLifeCycle
         UIEvents.OnQuit += HandleQuit;
 
         FindAnyObjectByType<ObjectGenerator<BaseEnemyBehaviour>>().Init(this);
+        FindAnyObjectByType<ObjectGenerator<BaseCollectible>>().Init(this);
     }
 
 
