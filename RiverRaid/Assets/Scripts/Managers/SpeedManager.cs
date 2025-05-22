@@ -13,6 +13,7 @@ public class SpeedManager : MonoBehaviour
     public float SlowSpeed = 1.0f;
     public float FastSpeed = 4.0f;
 
+    private bool _gameStopped = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -27,17 +28,23 @@ public class SpeedManager : MonoBehaviour
     #region Event Handling
     private void HandleStartLevel(object sender, System.EventArgs e)
     {
+        _gameStopped = false;
+
         _currentSpeed = NormalSpeed;
         OnSpeedChanged?.Invoke(this, _currentSpeed);
     }
     private void HandleEndGame(object sender, System.EventArgs e)
     {
+        _gameStopped = true;
+
         _currentSpeed = 0.0f;
         OnSpeedChanged?.Invoke(this, _currentSpeed);
     }
 
     private void HandlePlayerAccelerating(object sender, float acceleration)
     {
+        if (_gameStopped) return;
+
         CalculateSpeed(acceleration);
         OnSpeedChanged?.Invoke(this, _currentSpeed);
     }
