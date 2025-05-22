@@ -19,7 +19,7 @@ public class ObjectGenerator<T> : MonoBehaviour where T : MonoBehaviour, IGenera
     private IGameLifeCycle _gameManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    protected virtual void Awake()
     {
         _generatorCoroutine = null;
 
