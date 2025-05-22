@@ -34,7 +34,7 @@ public class RiverManager : MonoBehaviour
             FindBifurcatedRiverBounds();
     }
 
-    public bool GetXBoundsGivenY(int y, out int minX, out int maxX, int currentX)
+    public bool GetXBoundsGivenY(int y, out int minX, out int maxX, int currentX = 0)
     {
         y += Mathf.FloorToInt(_levelInfo.TrackeablePositionY);
 
