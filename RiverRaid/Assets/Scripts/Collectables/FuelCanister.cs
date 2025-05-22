@@ -6,7 +6,7 @@ public class FuelCanister : BaseCollectible
     [Range(0, 1)]
     public float PercentageFuelRestored = 0.75f;
 
-    public override void Collect(GameObject player)
+    public override void CollectInternal(GameObject player)
     {
         if (player.TryGetComponent(out PlayerFuelManager fuelManager))
             fuelManager.AddFuelPercentage(PercentageFuelRestored);

@@ -4,6 +4,9 @@ using UnityEngine;
 public abstract class BaseCollectible : MonoBehaviour, ICollectable, IGenerable
 {
     public event EventHandler OnShouldBeReleased;
+    public event EventHandler<int> OnCollected;
+
+    public int ScoreValue;
 
     protected int _spawnPositionY;
     protected int _minSpawnPositionX;
@@ -37,7 +40,13 @@ public abstract class BaseCollectible : MonoBehaviour, ICollectable, IGenerable
     #endregion
 
     public virtual void Init() => transform.position = new Vector3(UnityEngine.Random.Range(_minSpawnPositionX, _maxSpawnPositionX + 1), _spawnPositionY, 0);
-    public abstract void Collect(GameObject player);
+    public virtual void Collect(GameObject player)
+    {
+        OnCollected?.Invoke(this, ScoreValue);
+
+        CollectInternal(player);
+    }
+    public abstract void CollectInternal(GameObject player);
 
     protected void TriggerShouldBeReleased() => OnShouldBeReleased?.Invoke(this, EventArgs.Empty);
 
