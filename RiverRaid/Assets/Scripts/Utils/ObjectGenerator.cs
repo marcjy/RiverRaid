@@ -6,6 +6,9 @@ using UnityEngine.Pool;
 
 public class ObjectGenerator<T> : MonoBehaviour where T : MonoBehaviour, IGenerable
 {
+    public event EventHandler<T> OnObjectGet;
+    public event EventHandler<T> OnObjectReleased;
+
     public T[] ObjectPrefabs;
     public float SecondsPerObject;
 
@@ -64,8 +67,8 @@ public class ObjectGenerator<T> : MonoBehaviour where T : MonoBehaviour, IGenera
 
     private void HandleObjectShouldBeReleased(object sender, System.EventArgs e)
     {
-        Type obstacleType = sender.GetType();
-        _objectPools[obstacleType].Release((T)sender);
+        Type objectType = sender.GetType();
+        _objectPools[objectType].Release((T)sender);
     }
 
     #region ObjectPool
@@ -82,11 +85,15 @@ public class ObjectGenerator<T> : MonoBehaviour where T : MonoBehaviour, IGenera
         @object.enabled = true;
 
         @object.Init();
+
+        OnObjectGet?.Invoke(this, @object);
     }
     private void ReleaseObjectFromPool(T @object)
     {
         _activeObjectsInPools.Remove(@object.GetInstanceID());
         @object.gameObject.SetActive(false);
+
+        OnObjectReleased?.Invoke(this, @object);
     }
     private void DestroyObjectFromPool(T @object)
     {
