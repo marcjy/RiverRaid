@@ -46,6 +46,8 @@ public class ObjectGenerator<T> : MonoBehaviour where T : MonoBehaviour, IGenera
     private void TurnOn() => _generatorCoroutine = StartCoroutine(GeneratorLoop());
     private void TurnOff()
     {
+        ReleaseAllObjects();
+
         StopCoroutine(_generatorCoroutine);
         _generatorCoroutine = null;
 
@@ -71,7 +73,7 @@ public class ObjectGenerator<T> : MonoBehaviour where T : MonoBehaviour, IGenera
     #region ObjectPool
     private T CreateObstalceInPool(T @object)
     {
-        T newObject = Instantiate(@object);
+        T newObject = Instantiate(@object, transform);
         newObject.OnShouldBeReleased += HandleObjectShouldBeReleased;
         return newObject;
     }
