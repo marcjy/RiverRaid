@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class BaseDestructible : MonoBehaviour
@@ -19,5 +20,10 @@ public abstract class BaseDestructible : MonoBehaviour
         OnDestroyedInternal(source);
     }
 
-    protected abstract void OnDestroyedInternal(GameObject source);
+    protected virtual void OnDestroyedInternal(GameObject source)
+    {
+        DestroyOnAnimationEvent destroyAnimation = Instantiate(DestroyAnimation);
+        destroyAnimation.AddComponent<ScrollVertically>().RecalculateSpeed();
+        destroyAnimation.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+    }
 }

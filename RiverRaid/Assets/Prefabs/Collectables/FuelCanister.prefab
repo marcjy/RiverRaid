@@ -10,6 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3446790345684924746}
   - component: {fileID: 7990829052618662113}
+  - component: {fileID: 5358742729632475132}
+  - component: {fileID: 2476238746921904023}
+  - component: {fileID: 4828641859637374068}
+  - component: {fileID: 8605586222828039837}
   m_Layer: 0
   m_Name: FuelCanister
   m_TagString: Untagged
@@ -73,8 +77,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 24399347
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 864645682, guid: a2a9b1589732ea945a0adf242b086589, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -87,3 +91,89 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &5358742729632475132
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5908915313402967254}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.4, y: 0.625}
+    newSize: {x: 0.4, y: 0.625}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.4, y: 0.625}
+  m_EdgeRadius: 0
+--- !u!114 &2476238746921904023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5908915313402967254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6959463e64a3cd45b1f740289102e28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PercentageFuelRestored: 0.75
+--- !u!114 &4828641859637374068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5908915313402967254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 607e431b387c5984fbcc87b5e76a22f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScoreValue: 0
+  DestroyAnimation: {fileID: 4141515250804479983, guid: 61911cf08363e3d43b2c6aad17c7a7af, type: 3}
+  _destroySound: {fileID: 8300000, guid: 1eb8ef1721bb84c429ca39bf0123ab4e, type: 3}
+--- !u!114 &8605586222828039837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5908915313402967254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fc61303458bb174cb3423573fef4dff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
