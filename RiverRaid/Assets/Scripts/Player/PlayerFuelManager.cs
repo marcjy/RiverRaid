@@ -45,11 +45,7 @@ public class PlayerFuelManager : MonoBehaviour
             OnCurrentFuelChanged?.Invoke(this, (_currentFuel / MaxFuel) * 100.0f);
 
             if (_currentFuel <= 0.0f)
-            {
                 OnOutOfFuel?.Invoke(this, EventArgs.Empty);
-                _fuelConsumptionCoroutine = null;
-                yield break;
-            }
         }
     }
 }

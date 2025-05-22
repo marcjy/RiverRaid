@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6959463e64a3cd45b1f740289102e28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ScoreValue: 100
   PercentageFuelRestored: 0.75
 --- !u!114 &4828641859637374068
 MonoBehaviour:
@@ -162,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 607e431b387c5984fbcc87b5e76a22f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScoreValue: 0
+  ScoreValue: -50
   DestroyAnimation: {fileID: 4141515250804479983, guid: 61911cf08363e3d43b2c6aad17c7a7af, type: 3}
   _destroySound: {fileID: 8300000, guid: 1eb8ef1721bb84c429ca39bf0123ab4e, type: 3}
 --- !u!114 &8605586222828039837

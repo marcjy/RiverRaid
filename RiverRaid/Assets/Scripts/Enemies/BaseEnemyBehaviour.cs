@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyDestructible))]
 public abstract class BaseEnemyBehaviour : MonoBehaviour, IGenerable
 {
     public event EventHandler OnShouldBeReleased;
