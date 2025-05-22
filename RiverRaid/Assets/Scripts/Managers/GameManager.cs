@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour, IGameLifeCycle
     public event EventHandler OnStartNewGame;
 
     public event EventHandler OnStartLevel;
-    public event EventHandler OnResetLevel;
+    public event EventHandler OnLevelEnds;
 
     public event EventHandler OnEndGame;
     public event EventHandler OnResetGame;
@@ -105,12 +105,10 @@ public class GameManager : MonoBehaviour, IGameLifeCycle
     private void RoundEnd()
     {
         _currentPlayerLifes--;
+        OnLevelEnds?.Invoke(this, EventArgs.Empty);
 
-        if (_currentPlayerLifes > 0)
-        {
+        if (HasLivesLeft())
             _playerIsAlive = true;
-            OnResetLevel?.Invoke(this, EventArgs.Empty);
-        }
     }
     private void GameEnd()
     {

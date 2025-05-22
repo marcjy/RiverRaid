@@ -24,13 +24,13 @@ public class LevelManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GameManager.Instance.OnResetLevel += HandleResetLevel;
+        GameManager.Instance.OnStartLevel += HandleStartLevel;
         GameManager.Instance.OnResetGame += HandleResetGame;
     }
 
 
     #region EventHandling
-    private void HandleResetLevel(object sender, System.EventArgs e)
+    private void HandleStartLevel(object sender, System.EventArgs e)
     {
         _currentLevel.transform.position = new Vector3(0, 0, 0);
         PlaceNextLevelAboveCurrent();

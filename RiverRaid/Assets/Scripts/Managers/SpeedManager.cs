@@ -21,8 +21,7 @@ public class SpeedManager : MonoBehaviour
         InputManager.Instance.OnPlayerAccelerating += HandlePlayerAccelerating;
 
         GameManager.Instance.OnStartLevel += HandleStartLevel;
-        GameManager.Instance.OnResetGame += HandleGameStateReset;
-        GameManager.Instance.OnEndGame += HandleGameStateReset;
+        GameManager.Instance.OnEndGame += HandleEndGame;
     }
 
     #region Event Handling
@@ -31,7 +30,7 @@ public class SpeedManager : MonoBehaviour
         _currentSpeed = NormalSpeed;
         OnSpeedChanged?.Invoke(this, _currentSpeed);
     }
-    private void HandleGameStateReset(object sender, System.EventArgs e)
+    private void HandleEndGame(object sender, System.EventArgs e)
     {
         _currentSpeed = 0.0f;
         OnSpeedChanged?.Invoke(this, _currentSpeed);

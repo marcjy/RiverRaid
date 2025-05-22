@@ -18,7 +18,7 @@ public class PlayerFuelManager : MonoBehaviour
     void Start()
     {
         GameManager.Instance.OnStartLevel += HandleStartLevel;
-        GameManager.Instance.OnResetLevel += HandleResetLevel;
+        GameManager.Instance.OnLevelEnds += HandleLevelEnds;
     }
 
     public void AddFuelPercentage(float fuelPercentage) => _currentFuel = Mathf.Clamp(_currentFuel + _currentFuel * fuelPercentage, 0, MaxFuel);
@@ -29,9 +29,9 @@ public class PlayerFuelManager : MonoBehaviour
         _currentFuel = MaxFuel;
         _fuelConsumptionCoroutine = StartCoroutine(ConsumeFuel());
     }
-    private void HandleResetLevel(object sender, EventArgs e)
+    private void HandleLevelEnds(object sender, EventArgs e)
     {
-        StopCoroutine(ConsumeFuel());
+        StopCoroutine(_fuelConsumptionCoroutine);
         _fuelConsumptionCoroutine = null;
     }
     #endregion
@@ -42,7 +42,7 @@ public class PlayerFuelManager : MonoBehaviour
             yield return new WaitForSeconds(FuelConsumptionTickRate);
 
             _currentFuel -= FuelConsumptionPerTick;
-            OnCurrentFuelChanged?.Invoke(this, _currentFuel);
+            OnCurrentFuelChanged?.Invoke(this, (_currentFuel / MaxFuel) * 100.0f);
 
             if (_currentFuel <= 0.0f)
             {

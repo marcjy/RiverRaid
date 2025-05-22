@@ -39,15 +39,13 @@ public class ObjectGenerator<T> : MonoBehaviour where T : MonoBehaviour, IGenera
         _gameManager = GameManager;
 
         _gameManager.OnStartNewGame += HandleStartNewGame;
-        _gameManager.OnResetLevel += HandleResetGame;
+        _gameManager.OnLevelEnds += HandleLevelEnds;
         _gameManager.OnEndGame += HandleGameEnded;
     }
 
     private void TurnOn() => _generatorCoroutine = StartCoroutine(GeneratorLoop());
     private void TurnOff()
     {
-        ReleaseAllObjects();
-
         StopCoroutine(_generatorCoroutine);
         _generatorCoroutine = null;
 
@@ -61,7 +59,7 @@ public class ObjectGenerator<T> : MonoBehaviour where T : MonoBehaviour, IGenera
     }
 
     private void HandleStartNewGame(object sender, EventArgs e) => TurnOn();
-    private void HandleResetGame(object sender, EventArgs e) => ReleaseAllObjects();
+    private void HandleLevelEnds(object sender, EventArgs e) => ReleaseAllObjects();
     private void HandleGameEnded(object sender, EventArgs e) => TurnOff();
 
     private void HandleObjectShouldBeReleased(object sender, System.EventArgs e)
@@ -124,7 +122,7 @@ public class ObjectGenerator<T> : MonoBehaviour where T : MonoBehaviour, IGenera
     private void OnDestroy()
     {
         _gameManager.OnStartNewGame -= HandleStartNewGame;
-        _gameManager.OnResetLevel -= HandleResetGame;
+        _gameManager.OnLevelEnds -= HandleLevelEnds;
         _gameManager.OnEndGame -= HandleGameEnded;
     }
 }

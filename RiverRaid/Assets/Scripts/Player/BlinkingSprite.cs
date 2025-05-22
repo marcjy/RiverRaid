@@ -12,10 +12,10 @@ public class BlinkingSprite : MonoBehaviour
     {
         _renderer = GetComponent<SpriteRenderer>();
 
-        GameManager.Instance.OnResetLevel += HandleResetLevel;
+        GameManager.Instance.OnLevelEnds += HandleLevelEnds;
     }
 
-    private void HandleResetLevel(object sender, System.EventArgs e) => StartCoroutine(StartBlinking());
+    private void HandleLevelEnds(object sender, System.EventArgs e) => StartCoroutine(StartBlinking());
 
     private IEnumerator StartBlinking()
     {
