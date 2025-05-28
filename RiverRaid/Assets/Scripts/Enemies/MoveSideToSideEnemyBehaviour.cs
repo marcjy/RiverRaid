@@ -76,7 +76,7 @@ public class MoveSideToSideEnemyBehaviour : BaseEnemyBehaviour
     private void CalculateXBoundsAtY(int y)
     {
         if (!_riverManager.GetXBoundsGivenY(y, out _minPositionX, out _maxPositionX, Mathf.FloorToInt(transform.position.x)))
-            Destroy(gameObject);
+            TriggerOnShouldBeReleased();
 
         _targetX = _movingLeft ? _minPositionX : _maxPositionX;
     }

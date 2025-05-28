@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class TrackPlayerEnemyBehaviour : BaseEnemyBehaviour
 {
-    public float RotationOffsetZ;
+    public float Speed;
 
+    public float RotationOffsetZ;
     public int MinSpawnPositionX;
     public int MaxSpawnPositionX;
 
@@ -13,13 +14,6 @@ public class TrackPlayerEnemyBehaviour : BaseEnemyBehaviour
 
     private Coroutine _trackPlayerCoroutine;
 
-    private float _currentSpeed;
-
-    private void Start()
-    {
-        SpeedManager.OnSpeedChanged += HandleSpeedChanged;
-        _currentSpeed = SpeedManager.CurrentSpeed;
-    }
 
 
     protected override void Update()
@@ -32,7 +26,7 @@ public class TrackPlayerEnemyBehaviour : BaseEnemyBehaviour
     }
 
     #region Event Handling
-    private void HandleSpeedChanged(object sender, float newSpeed) => _currentSpeed = newSpeed;
+    private void HandleSpeedChanged(object sender, float newSpeed) => Speed = newSpeed;
     #endregion
 
     public override void Init()
@@ -49,7 +43,7 @@ public class TrackPlayerEnemyBehaviour : BaseEnemyBehaviour
 
         while (true)
         {
-            transform.position = Vector3.MoveTowards(transform.position, playerPosition, _currentSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, playerPosition, Speed * Time.deltaTime);
 
             if (elapsedTime >= RepathInterval)
             {

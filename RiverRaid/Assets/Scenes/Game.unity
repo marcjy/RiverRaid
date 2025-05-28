@@ -4447,7 +4447,7 @@ GameObject:
   - component: {fileID: 1678854590}
   - component: {fileID: 1678854589}
   - component: {fileID: 1678854596}
-  - component: {fileID: 1678854597}
+  - component: {fileID: 1678854599}
   - component: {fileID: 1678854588}
   - component: {fileID: 1678854591}
   - component: {fileID: 1678854593}
@@ -4590,7 +4590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 217e2cdecc1844343881ad99d5363754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 2
+  MoveSpeed: 6
   TiltSpeed: 2
   MaxTilt: 30
   TiltAnimationDuration: 1
@@ -4648,7 +4648,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1678854586}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -4667,8 +4667,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!68 &1678854597
-EdgeCollider2D:
+--- !u!114 &1678854598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678854586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c80175059149ae448abe03787b8e44e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxFuel: 100
+  FuelConsumptionPerTick: 1
+  FuelConsumptionTickRate: 0.25
+--- !u!60 &1678854599
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4702,78 +4717,31 @@ EdgeCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.7777778, y: 1}
+    newSize: {x: 0.35, y: 0.45}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   m_Points:
-  - {x: -0.008686736, y: 0.48064083}
-  - {x: 0.0143402945, y: 0.4770605}
-  - {x: 0.039674252, y: 0.42954177}
-  - {x: 0.060212567, y: 0.34584066}
-  - {x: 0.08313338, y: 0.2552025}
-  - {x: 0.097076505, y: 0.15006517}
-  - {x: 0.12534395, y: 0.14456533}
-  - {x: 0.14724845, y: 0.12334703}
-  - {x: 0.17197688, y: 0.049731486}
-  - {x: 0.1952317, y: -0.014265297}
-  - {x: 0.21597648, y: -0.058432333}
-  - {x: 0.26196697, y: -0.074669115}
-  - {x: 0.30370545, y: -0.095494494}
-  - {x: 0.34971723, y: -0.117044196}
-  - {x: 0.37155822, y: -0.14713167}
-  - {x: 0.36767232, y: -0.21967861}
-  - {x: 0.27915847, y: -0.23847839}
-  - {x: 0.18891762, y: -0.26565334}
-  - {x: 0.19067176, y: -0.31412145}
-  - {x: 0.23587891, y: -0.3352811}
-  - {x: 0.26302767, y: -0.36748764}
-  - {x: 0.25526363, y: -0.4146983}
-  - {x: 0.23494826, y: -0.44107455}
-  - {x: 0.18478608, y: -0.4586975}
-  - {x: 0.13883868, y: -0.4834172}
-  - {x: 0.07409315, y: -0.4842922}
-  - {x: 0.033466775, y: -0.4192869}
-  - {x: -0.0329513, y: -0.4208457}
-  - {x: -0.07725621, y: -0.48203295}
-  - {x: -0.14708635, y: -0.47767323}
-  - {x: -0.23582536, y: -0.43945712}
-  - {x: -0.26265064, y: -0.41262168}
-  - {x: -0.26002744, y: -0.35897657}
-  - {x: -0.23077112, y: -0.34214088}
-  - {x: -0.22722727, y: -0.34367868}
-  - {x: -0.1932774, y: -0.25779745}
-  - {x: -0.28274834, y: -0.23751375}
-  - {x: -0.37305492, y: -0.22165892}
-  - {x: -0.37278917, y: -0.14023565}
-  - {x: -0.34197676, y: -0.108660445}
-  - {x: -0.30057392, y: -0.09346412}
-  - {x: -0.26253653, y: -0.06896376}
-  - {x: -0.21398306, y: -0.04589104}
-  - {x: -0.1909142, y: -0.0040004253}
-  - {x: -0.1727612, y: 0.062432043}
-  - {x: -0.15047206, y: 0.12784885}
-  - {x: -0.12292125, y: 0.15116476}
-  - {x: -0.08583498, y: 0.25717613}
-  - {x: -0.06087504, y: 0.344722}
-  - {x: -0.038132545, y: 0.43368357}
-  - {x: -0.00927574, y: 0.48453325}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
---- !u!114 &1678854598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1678854586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c80175059149ae448abe03787b8e44e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxFuel: 100
-  FuelConsumptionPerTick: 1
-  FuelConsumptionTickRate: 0.25
+    m_Paths:
+    - - {x: 0.18888889, y: 0.14444445}
+      - {x: 0.07777778, y: 0.5}
+      - {x: -0.055555556, y: 0.5}
+      - {x: -0.1, y: 0.45555556}
+      - {x: -0.32222223, y: 0.011111111}
+      - {x: -0.3888889, y: -0.07777778}
+      - {x: -0.3888889, y: -0.41111112}
+      - {x: -0.36666667, y: -0.45555556}
+      - {x: -0.2777778, y: -0.5}
+      - {x: 0.23333333, y: -0.5}
+      - {x: 0.32222223, y: -0.43333334}
+      - {x: 0.3888889, y: -0.3}
+      - {x: 0.3888889, y: -0.1}
+  m_UseDelaunayMesh: 0
 --- !u!1 &1725544592
 GameObject:
   m_ObjectHideFlags: 0

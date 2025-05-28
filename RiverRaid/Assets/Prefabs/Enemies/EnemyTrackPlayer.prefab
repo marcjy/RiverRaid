@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 664add6c2c81df0418daed28fb66ef23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Speed: 6
   RotationOffsetZ: -90
   MinSpawnPositionX: -11
   MaxSpawnPositionX: 11
