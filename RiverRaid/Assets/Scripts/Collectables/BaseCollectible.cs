@@ -7,6 +7,7 @@ public abstract class BaseCollectible : MonoBehaviour, ICollectable, IGenerable
     public event EventHandler<int> OnCollected;
 
     public int ScoreValue;
+    public AudioClip CollectedSound;
 
     protected int _spawnPositionY;
     protected int _minSpawnPositionX;
@@ -43,6 +44,8 @@ public abstract class BaseCollectible : MonoBehaviour, ICollectable, IGenerable
     public virtual void Collect(GameObject player)
     {
         OnCollected?.Invoke(this, ScoreValue);
+
+        AudioManager.PlaySFX(CollectedSound);
 
         CollectInternal(player);
     }
