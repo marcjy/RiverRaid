@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScoreValue: 100
+  CollectedSound: {fileID: 8300000, guid: 4bfa0aea368284045a300200719bc3e5, type: 3}
   PercentageFuelRestored: 0.75
 --- !u!114 &4828641859637374068
 MonoBehaviour:
