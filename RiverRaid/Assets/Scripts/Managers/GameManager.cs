@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour, IGameLifeCycle
     public int PlayerMaxLifes = 3;
     private int _currentPlayerLifes;
 
+    public AudioLibrary AudioLibrary;
 
     private void Awake()
     {
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour, IGameLifeCycle
         _player = FindAnyObjectByType<PlayerController>();
         _playerInitialPosition = _player.transform.position;
 
-        AudioManager.Init();
+        AudioManager.Init(AudioLibrary);
     }
 
     private void Start()
