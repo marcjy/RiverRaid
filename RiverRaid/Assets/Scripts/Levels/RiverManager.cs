@@ -36,7 +36,7 @@ public class RiverManager : MonoBehaviour
 
     public bool GetXBoundsGivenY(int y, out int minX, out int maxX, int currentX = 0)
     {
-        y += Mathf.FloorToInt(_levelInfo.TrackeablePositionY);
+        y += Mathf.RoundToInt(_levelInfo.TrackeablePositionY);
 
         if (RiverIsBifurcated && (y >= BifurcationStartsAtY && y <= BifurcationEndsAtY))
             GetBifurcatedRiverXBounds(y, out minX, out maxX, currentX);
@@ -75,6 +75,8 @@ public class RiverManager : MonoBehaviour
                     _tilePositions.Add(pos);
             }
         }
+
+        _tilePositions = _tilePositions.OrderBy(pos => pos.y).ToList();
     }
 
     private void FindBifurcatedRiverBounds()
@@ -119,5 +121,10 @@ public class RiverManager : MonoBehaviour
     {
         minX = currentX >= _leftRiverMinX && currentX <= _leftRiverMaxX ? _leftRiverMinX : _rightRiverMinX;
         maxX = currentX >= _leftRiverMinX && currentX <= _leftRiverMaxX ? _leftRiverMaxX : _rightRiverMaxX;
+
+        minX += 1;
+        maxX -= 1;
+
+        Debug.Log($"For Y-{y}; MinX-{minX}; MaxX{maxX};");
     }
 }
