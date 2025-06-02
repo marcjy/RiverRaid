@@ -4,12 +4,24 @@ using UnityEngine;
 
 public class PlayerFuelManager : MonoBehaviour
 {
+    private enum FuelLevelState { Normal, Low, Critical, Empty }
+
     public event EventHandler OnOutOfFuel;
     public event EventHandler<float> OnCurrentFuelChanged;
+    public event EventHandler OnNormalFuelLevel;
+    public event EventHandler OnLowFuelLevel;
+    public event EventHandler OnCriticalFuelLevel;
 
     public float MaxFuel;
     public float FuelConsumptionPerTick;
     public float FuelConsumptionTickRate;
+
+    [Header("Fuel Warnings")]
+    [Range(0, 1)]
+    public float LowFuelLevels;
+    [Range(0, 1)]
+    public float CriticalFuelLevels;
+    private FuelLevelState _currenFuelLevelState = FuelLevelState.Normal;
 
     private float _currentFuel;
     private Coroutine _fuelConsumptionCoroutine;
@@ -44,8 +56,51 @@ public class PlayerFuelManager : MonoBehaviour
             _currentFuel -= FuelConsumptionPerTick;
             OnCurrentFuelChanged?.Invoke(this, (_currentFuel / MaxFuel) * 100.0f);
 
-            if (_currentFuel <= 0.0f)
-                OnOutOfFuel?.Invoke(this, EventArgs.Empty);
+            EvaluateFuelLevel();
+        }
+    }
+
+    private void EvaluateFuelLevel()
+    {
+        float fuelPercentage = _currentFuel / MaxFuel;
+        FuelLevelState newState;
+
+        if (_currentFuel <= 0.0f)
+        {
+            newState = FuelLevelState.Empty;
+        }
+        else if (fuelPercentage < CriticalFuelLevels)
+        {
+            newState = FuelLevelState.Critical;
+        }
+        else if (fuelPercentage < LowFuelLevels)
+        {
+            newState = FuelLevelState.Low;
+        }
+        else
+        {
+            newState = FuelLevelState.Normal;
+        }
+
+        if (_currenFuelLevelState != newState)
+        {
+            _currenFuelLevelState = newState;
+
+            switch (newState)
+            {
+                case FuelLevelState.Normal:
+                    OnNormalFuelLevel?.Invoke(this, EventArgs.Empty);
+                    break;
+                case FuelLevelState.Low:
+                    OnLowFuelLevel?.Invoke(this, EventArgs.Empty);
+                    break;
+                case FuelLevelState.Critical:
+                    OnCriticalFuelLevel?.Invoke(this, EventArgs.Empty);
+                    break;
+                case FuelLevelState.Empty:
+                    OnOutOfFuel?.Invoke(this, EventArgs.Empty);
+                    break;
+            }
         }
     }
 }
