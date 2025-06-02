@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fc341e8f9966ff4abe55dec5b740cbb, type: 3}
   m_Name: AudioLibrary
   m_EditorClassIdentifier: 
-  MainTheme: {fileID: 0}
-  GameOverTheme: {fileID: 0}
+  MainMenuTheme: {fileID: 8300000, guid: c7a447a1e68911c4ba109d5b5b9e5398, type: 3}
+  MainThemeIntro: {fileID: 8300000, guid: 5ee03dacac812e3468b84db7d952ccfc, type: 3}
+  MainTheme: {fileID: 8300000, guid: e02fca54c439b664fa265e89f47acf0d, type: 3}
+  GameOverTheme: {fileID: 8300000, guid: 323d53fcbfff6784eaed253e520c8334, type: 3}

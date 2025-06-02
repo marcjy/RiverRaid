@@ -24,9 +24,9 @@ public static class AudioManager
 
         GameManager.Instance.OnStartNewGame += HandleStartNewGame;
         GameManager.Instance.OnEndGame += HandleEndGame;
+
+        PlayMusic(_audioLibrary.MainMenuTheme);
     }
-
-
 
     private static void HandleStartNewGame(object sender, System.EventArgs e) => CoroutineRunner.Instance.StartCoroutine(PlayMainTheme());
     private static void HandleEndGame(object sender, System.EventArgs e) => PlayMusic(_audioLibrary.GameOverTheme, false);

@@ -18,6 +18,12 @@ public class MoveSideToSideEnemyBehaviour : BaseEnemyBehaviour
     private float _lastYUsedForXBounds;
     private bool _movingLeft;
 
+#if DEBUG
+    private LevelInfo _levelInfo;
+    private float _virtuaPositionY;
+    private float _initialVirtuaPositionY;
+#endif
+
     protected override void Awake()
     {
         base.Awake();
@@ -40,7 +46,7 @@ public class MoveSideToSideEnemyBehaviour : BaseEnemyBehaviour
 
         if (HasYChangedSinceLastBoundsCheck())
         {
-            CalculateXBoundsAtY(Mathf.FloorToInt(transform.position.y));
+            CalculateXBoundsAtY(Mathf.RoundToInt(transform.position.y));
             _lastYUsedForXBounds = transform.position.y;
         }
     }
@@ -49,6 +55,11 @@ public class MoveSideToSideEnemyBehaviour : BaseEnemyBehaviour
     {
         _riverManager = _levelManager.CurrentLevel.GetComponentInChildren<RiverManager>();
         CalculateXBoundsAtY(_spawnPositionY);
+
+#if DEBUG
+        _levelInfo = _levelManager.CurrentLevel.GetComponent<LevelInfo>();
+        _initialVirtuaPositionY = _levelInfo.TrackeablePositionY + (_spawnPositionY * 2);
+#endif
 
         transform.position = new Vector3(Random.Range(_minPositionX, _maxPositionX + 1), _spawnPositionY, 0);
 
@@ -65,6 +76,10 @@ public class MoveSideToSideEnemyBehaviour : BaseEnemyBehaviour
 
         transform.position = Vector3.MoveTowards(currentPosition, new Vector3(_targetX, currentPosition.y, currentPosition.z), Speed * Time.deltaTime);
 
+#if DEBUG
+        _virtuaPositionY = _initialVirtuaPositionY + transform.position.y;
+#endif
+
         if (Mathf.Approximately(transform.position.x, _targetX))
         {
             _movingLeft = !_movingLeft;
@@ -75,15 +90,15 @@ public class MoveSideToSideEnemyBehaviour : BaseEnemyBehaviour
 
     private void CalculateXBoundsAtY(int y)
     {
-        if (!_riverManager.GetXBoundsGivenY(y, out _minPositionX, out _maxPositionX, Mathf.FloorToInt(transform.position.x)))
+        if (!_riverManager.GetXBoundsGivenY(y + _spawnPositionY, out _minPositionX, out _maxPositionX, Mathf.FloorToInt(transform.position.x)))
             TriggerOnShouldBeReleased();
 
         _targetX = _movingLeft ? _minPositionX : _maxPositionX;
     }
     private bool HasYChangedSinceLastBoundsCheck()
     {
-        int previousY = Mathf.FloorToInt(_lastYUsedForXBounds);
-        int currentY = Mathf.FloorToInt(transform.position.y);
+        int previousY = Mathf.RoundToInt(_lastYUsedForXBounds);
+        int currentY = Mathf.RoundToInt(transform.position.y);
 
         return previousY != currentY;
     }
@@ -93,6 +108,6 @@ public class MoveSideToSideEnemyBehaviour : BaseEnemyBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, new Vector3(_targetX, transform.position.y, transform.position.z));
+        Gizmos.DrawLine(new Vector3(_minPositionX, transform.position.y, transform.position.z), new Vector3(_maxPositionX, transform.position.y, transform.position.z));
     }
 }

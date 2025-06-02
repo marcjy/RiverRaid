@@ -58,6 +58,7 @@ public class RiverManager : MonoBehaviour
             }
         }
 
+        Debug.Log($"For Y-[{y}]; MinX-[{minX}]; MaxX-[{maxX}];");
         return true;
     }
 
@@ -125,6 +126,6 @@ public class RiverManager : MonoBehaviour
         minX += 1;
         maxX -= 1;
 
-        Debug.Log($"For Y-{y}; MinX-{minX}; MaxX{maxX};");
+        Debug.Log($"Bifurcated - For Y-[{y}]; MinX-[{minX}]; MaxX-[{maxX}];");
     }
 }
