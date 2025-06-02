@@ -33,7 +33,7 @@ public class PlayerFuelManager : MonoBehaviour
         GameManager.Instance.OnLevelEnds += HandleLevelEnds;
     }
 
-    public void AddFuelPercentage(float fuelPercentage) => _currentFuel = Mathf.Clamp(_currentFuel + _currentFuel * fuelPercentage, 0, MaxFuel);
+    public void AddFuelPercentage(float fuelPercentage) => _currentFuel = Mathf.Clamp(_currentFuel + (MaxFuel * fuelPercentage), 0, MaxFuel);
 
     #region Event Handling
     private void HandleStartLevel(object sender, EventArgs e)
