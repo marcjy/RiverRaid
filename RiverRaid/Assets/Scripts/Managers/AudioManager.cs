@@ -25,8 +25,16 @@ public static class AudioManager
         GameManager.Instance.OnStartNewGame += HandleStartNewGame;
         GameManager.Instance.OnEndGame += HandleEndGame;
 
+        PlayerFuelManager fuelManager = GameManager.Instance.Player.GetComponent<PlayerFuelManager>();
+        fuelManager.OnLowFuelLevel += HandlePlayerLowFuelLevel;
+        fuelManager.OnCriticalFuelLevel += HandlePlayerCriticalFuelLevel;
+
+
         PlayMusic(_audioLibrary.MainMenuTheme);
     }
+
+    private static void HandlePlayerLowFuelLevel(object sender, System.EventArgs e) => PlaySFX(_audioLibrary.LowFuelLevel);
+    private static void HandlePlayerCriticalFuelLevel(object sender, System.EventArgs e) => PlaySFX(_audioLibrary.CriticalFuelLevel);
 
     private static void HandleStartNewGame(object sender, System.EventArgs e) => CoroutineRunner.Instance.StartCoroutine(PlayMainTheme());
     private static void HandleEndGame(object sender, System.EventArgs e) => PlayMusic(_audioLibrary.GameOverTheme, false);

@@ -9,4 +9,8 @@ public class AudioLibrary : ScriptableObject
     public AudioClip MainTheme;
 
     public AudioClip GameOverTheme;
+
+    [Header("Fuel Warnings")]
+    public AudioClip LowFuelLevel;
+    public AudioClip CriticalFuelLevel;
 }
