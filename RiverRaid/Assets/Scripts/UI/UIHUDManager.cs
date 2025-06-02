@@ -20,6 +20,7 @@ public class UIHUDManager : MonoBehaviour
     [Header("Fuel")]
     public Slider FuelSlider;
     public TextMeshProUGUI FuelValue;
+    public GameObject LowFuelWarning;
 
     [Header("Score")]
     public TextMeshProUGUI ScoreValue;
@@ -40,6 +41,8 @@ public class UIHUDManager : MonoBehaviour
     {
         _playerFuelManager = GameManager.Instance.Player.GetComponent<PlayerFuelManager>();
         _playerFuelManager.OnCurrentFuelChanged += HandleCurrentFuelChanged;
+        _playerFuelManager.OnNormalFuelLevel += HandleNormalFuelLevel;
+        _playerFuelManager.OnLowFuelLevel += HandleLowFuelLevel;
 
         GameManager.Instance.OnStartNewGame += HandleStartNewGame;
         GameManager.Instance.OnStartLevel += HandleStartLevel;
@@ -49,6 +52,7 @@ public class UIHUDManager : MonoBehaviour
 
         StatsTracker.OnScoreChanges += HandleNewScoreValue;
     }
+
 
     #region Event Handling
     private void HandleStartNewGame(object sender, System.EventArgs e)
@@ -63,11 +67,15 @@ public class UIHUDManager : MonoBehaviour
     private void HandleResetGame(object sender, System.EventArgs e) => _canvasGroupHUD.alpha = 0.0f;
 
     private void HandlePlayerLosesLive(object sender, System.EventArgs e) => LoseHeart();
+
     private void HandleCurrentFuelChanged(object sender, float currentFuel)
     {
         FuelValue.text = Mathf.RoundToInt(currentFuel).ToString();
         FuelSlider.value = currentFuel / 100;
     }
+    private void HandleNormalFuelLevel(object sender, System.EventArgs e) => HideLowFuelLevelWarning();
+    private void HandleLowFuelLevel(object sender, System.EventArgs e) => ShowLowFuelLevelWarning();
+
     private void HandleNewScoreValue(object sender, int newScoreValue) => ScoreValue.text = newScoreValue.ToString();
     #endregion
 
@@ -110,4 +118,8 @@ public class UIHUDManager : MonoBehaviour
         Hearts[_currentFullHeartsIndex].sprite = EmptyHeart;
         _currentFullHeartsIndex--;
     }
+
+    private void ShowLowFuelLevelWarning() => LowFuelWarning.SetActive(true);
+    private void HideLowFuelLevelWarning() => LowFuelWarning.SetActive(false);
+
 }
