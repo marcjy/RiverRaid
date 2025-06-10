@@ -6305,7 +6305,7 @@ MonoBehaviour:
   FuelWarning: {fileID: 1718651739}
   FuelWarningText: {fileID: 879819248}
   PostProcesingVolume: {fileID: 1990789434}
-  FlashScreenInterval: 1
+  FlashScreenInterval: 0.5
 --- !u!1 &2121578430
 GameObject:
   m_ObjectHideFlags: 0
