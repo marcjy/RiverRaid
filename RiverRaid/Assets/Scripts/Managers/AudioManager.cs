@@ -30,6 +30,9 @@ public static class AudioManager
         fuelManager.OnLowFuelLevel += HandlePlayerLowFuelLevel;
         fuelManager.OnCriticalFuelLevel += HandlePlayerCriticalFuelLevel;
 
+        PlayerController playerController = GameManager.Instance.Player.GetComponent<PlayerController>();
+        playerController.OnStartDeath += HandlePlayerDeath;
+
 
         PlayMusic(_audioLibrary.MainMenuTheme);
     }
@@ -41,6 +44,8 @@ public static class AudioManager
     private static void HandleStartNewGame(object sender, System.EventArgs e) => CoroutineRunner.Instance.StartCoroutine(PlayMainTheme());
     private static void HandleEndGame(object sender, System.EventArgs e) => PlayMusic(_audioLibrary.GameOverTheme, false);
     private static void HandleResetGame(object sender, System.EventArgs e) => PlayMusic(_audioLibrary.MainMenuTheme);
+
+    private static void HandlePlayerDeath(object sender, System.EventArgs e) => PlaySFX(_audioLibrary.PlayerDeath);
 
     public static void PlayMusic(AudioClip audioClip, bool enableLoop = true)
     {

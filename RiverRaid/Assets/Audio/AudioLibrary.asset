@@ -15,6 +15,7 @@ MonoBehaviour:
   MainMenuTheme: {fileID: 8300000, guid: c7a447a1e68911c4ba109d5b5b9e5398, type: 3}
   MainThemeIntro: {fileID: 8300000, guid: 5ee03dacac812e3468b84db7d952ccfc, type: 3}
   MainTheme: {fileID: 8300000, guid: e02fca54c439b664fa265e89f47acf0d, type: 3}
+  PlayerDeath: {fileID: 8300000, guid: 0829d26c9760e744fa05be9317daf628, type: 3}
   GameOverTheme: {fileID: 8300000, guid: 323d53fcbfff6784eaed253e520c8334, type: 3}
   LowFuelLevel: {fileID: 8300000, guid: 47a6565434f9e324cb9c9f22ce7592c9, type: 3}
   CriticalFuelLevel: {fileID: 8300000, guid: e76cbcd43a6f74b4c9fcfddb7a32c860, type: 3}
