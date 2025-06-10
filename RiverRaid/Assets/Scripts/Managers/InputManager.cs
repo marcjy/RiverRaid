@@ -41,8 +41,8 @@ public class InputManager : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.OnStartNewGame += (sender, e) => EnablePlayerActionsInGame();
-        GameManager.Instance.OnEndGame += (sender, e) => DisablePlayerActionsInGame();
+        GameManager.Instance.OnStartLevel += (sender, e) => EnablePlayerActionsInGame();
+        GameManager.Instance.Player.GetComponent<PlayerController>().OnStartDeath += (sender, e) => DisablePlayerActionsInGame();
         GameManager.Instance.OnResetGame += (sender, e) => StartGame.action.Enable();
     }
 
