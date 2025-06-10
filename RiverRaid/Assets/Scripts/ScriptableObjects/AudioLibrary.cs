@@ -8,9 +8,11 @@ public class AudioLibrary : ScriptableObject
     public AudioClip MainThemeIntro;
     public AudioClip MainTheme;
 
+    public AudioClip PlayerDeath;
     public AudioClip GameOverTheme;
 
     [Header("Fuel Warnings")]
     public AudioClip LowFuelLevel;
     public AudioClip CriticalFuelLevel;
+
 }

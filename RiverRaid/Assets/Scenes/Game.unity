@@ -5043,6 +5043,8 @@ MonoBehaviour:
   SlowSpeedPositionY: -6.5
   AccelerationAnimationDuration: 0.5
   LineTrail: {fileID: 1662146572}
+  DeathAnimationDuration: 1.5
+  RotationIncrements: 10
 --- !u!114 &1678854593
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public event EventHandler OnDeath;
+    public event EventHandler OnStartDeath;
+    public event EventHandler OnFinishDeath;
 
     [Header("Movement")]
     public float MoveSpeed = 2.0f;
@@ -21,6 +22,10 @@ public class PlayerController : MonoBehaviour
     public LineRenderer LineTrail;
     private Coroutine _accelerationAnimationCoroutine = null;
 
+    [Header("Death")]
+    public float DeathAnimationDuration;
+    public int RotationIncrements;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -31,14 +36,14 @@ public class PlayerController : MonoBehaviour
         //Level Scroll speed
         InputManager.Instance.OnPlayerAccelerating += HandlePlayerAccelerating;
 
-        GetComponent<PlayerCollisionDetector>().OnHazardCollision += (sender, e) => OnDeath?.Invoke(this, EventArgs.Empty);
+        GetComponent<PlayerCollisionDetector>().OnHazardCollision += HandleDeath;
+        GetComponent<PlayerFuelManager>().OnOutOfFuel += HandleDeath;
     }
 
     void Update()
     {
         MoveHorizontally();
     }
-
 
     #region Event Handling
     private void HandlePlayerMoves(object sender, float direction)
@@ -65,6 +70,8 @@ public class PlayerController : MonoBehaviour
         else
             ActivateFastSpeedMode();
     }
+
+    private void HandleDeath(object sender, EventArgs e) => StartCoroutine(PlayAnimationDeath());
     #endregion
 
     private void MoveHorizontally() => transform.position += new Vector3(_moveDirection, 0.0f, 0.0f) * MoveSpeed * Time.deltaTime;
@@ -140,4 +147,31 @@ public class PlayerController : MonoBehaviour
         LineTrail.enabled = true;
     }
     #endregion
+
+    private IEnumerator PlayAnimationDeath()
+    {
+        OnStartDeath?.Invoke(this, EventArgs.Empty);
+
+        float elapsedTime = 0.0f;
+        Vector3 initRotation = transform.rotation.eulerAngles;
+        Vector3 initScale = transform.localScale;
+
+        Vector3 newRotation = initRotation;
+
+        while (elapsedTime < DeathAnimationDuration)
+        {
+            newRotation.z += RotationIncrements;
+
+            transform.rotation = Quaternion.Euler(newRotation);
+            transform.localScale = Vector3.Lerp(initScale, new Vector3(0.0f, 0.0f, 0.0f), elapsedTime / DeathAnimationDuration);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.rotation = Quaternion.Euler(initRotation);
+        transform.localScale = initScale;
+
+        OnFinishDeath?.Invoke(this, EventArgs.Empty);
+    }
 }

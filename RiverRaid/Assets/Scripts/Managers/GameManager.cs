@@ -39,8 +39,7 @@ public class GameManager : MonoBehaviour, IGameLifeCycle
 
     private void Start()
     {
-        _player.OnDeath += HandlePlayerDeath;
-        _player.GetComponent<PlayerFuelManager>().OnOutOfFuel += HandlePlayerOutOfFuel;
+        _player.OnFinishDeath += HandlePlayerDeath;
 
         UIEvents.OnStartGameAnimationCompleted += HandleStartGameAnimationCompleted;
 
