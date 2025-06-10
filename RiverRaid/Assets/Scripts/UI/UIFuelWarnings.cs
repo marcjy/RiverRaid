@@ -46,7 +46,9 @@ public class UIFuelWarnings : MonoBehaviour
     private void HandleEndGame(object sender, System.EventArgs e)
     {
         HideLowFuelLevelWarning();
-        DisableFlashScreen();
+
+        if (_flashScreenCoroutine != null)
+            DisableFlashScreen();
     }
 
     #endregion
